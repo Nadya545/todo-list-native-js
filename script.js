@@ -16,10 +16,12 @@ buttonFind.addEventListener("click", () => {
       foundTodos.forEach((element) => {
         renderLine(element);
       });
-      const clearButton = createButton("Очистить");
-      spanDiv.appendChild(clearButton);
+      const clearButton = createButton("Очистить", "clear");
+      const bigContainer = document.querySelector(".big_container");
+      bigContainer.appendChild(clearButton);
       clearButton.addEventListener("click", () => {
         spanDiv.innerHTML = "";
+        bigContainer.removeChild(clearButton);
         todoArray.forEach((element) => {
           renderLine(element);
         });
