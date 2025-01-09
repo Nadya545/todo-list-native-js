@@ -1,7 +1,9 @@
+import { todoDto } from "./dto.js";
+export const textAll = [];
 const inputCreate = document.querySelector(".input-create");
 const buttonCreate = document.querySelector(".create-button");
 const spanDiv = document.querySelector(".span");
-const textAll = [];
+
 let todoArray = [];
 const inputFind = document.querySelector(".input-find");
 const buttonFind = document.querySelector(".button-find");
@@ -33,45 +35,45 @@ buttonFind.addEventListener("click", () => {
 });
 
 function findAndGetElements(inputFindValue) {
-  const todoArray2 = [];
+  const foundTodosBySearch = [];
   todoArray.forEach((element) => {
     if (element.title.includes(inputFindValue)) {
-      todoArray2.push(element);
+      foundTodosBySearch.push(element);
     }
   });
-  return todoArray2;
+  return foundTodosBySearch;
 }
 //проверка если обьект не равен типу обьекта то выводим ошибку и false. в ином случае true
-const checkIsObject = (object) => {
+function checkIsObject(object) {
   if (typeof object !== "object") {
     console.log("Некорректный тип данных:", object);
     return false;
   }
   return true;
-};
+}
 
-const createDiv = (text = "", className = "") => {
+function createDiv(text = "", className = "") {
   const lineDiv = document.createElement("div");
   lineDiv.className = className;
   lineDiv.textContent = text;
   return lineDiv;
-};
+}
 
-const createButton = (text = "", className = "") => {
+function createButton(text = "", className = "") {
   const inputElement = document.createElement("button");
   inputElement.className = className;
   inputElement.textContent = text;
   return inputElement;
-};
+}
 
 async function getData() {
   try {
     const getToDos = await fetch("https://jsonplaceholder.typicode.com/todos");
-    const Todos = await getToDos.json();
-    todoArray = Todos;
-    console.log(Todos);
-    Todos.forEach((element) => {
-      renderLine(element);
+    const todos = await getToDos.json();
+    todoArray = todos;
+    console.log(todos);
+    todos.forEach((todo) => {
+      renderLine(todo);
     });
   } catch (error) {
     console.log("Ошибочка >>>>>>", error);
@@ -79,11 +81,11 @@ async function getData() {
 }
 getData();
 
-const formTextLine = (todo, isCompleted) => {
+function formTextLine(todo, isCompleted) {
   return `userId: ${todo.userId}, ID: ${todo.id}, Title: ${todo.title}, Completed: ${isCompleted}`;
-};
+}
 
-const setStylesCompletedTodo = (completed, element) => {
+function setStylesCompletedTodo(completed, element) {
   if (!element) return;
 
   if (completed) {
@@ -93,7 +95,7 @@ const setStylesCompletedTodo = (completed, element) => {
   }
 
   return !completed;
-};
+}
 
 function renderLine(todo) {
   if (!checkIsObject(todo)) return;
@@ -121,14 +123,6 @@ function renderLine(todo) {
     completed = setStylesCompletedTodo(completed, container);
     textDiv.textContent = formTextLine(todo, completed);
   });
-}
-function todoDto(userId, inputValue) {
-  return {
-    userId: userId,
-    id: textAll.length + 1, // Пример, устанавливать уникальный ID
-    title: inputValue,
-    completed: false,
-  };
 }
 
 buttonCreate.addEventListener("click", () => {
