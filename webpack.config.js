@@ -15,4 +15,8 @@ module.exports = {
     ],
   },
   mode: "development", // или 'production'
+  devServer: {
+    static: path.resolve(__dirname, "dist"),
+    port: 8002,
+  },
 };
