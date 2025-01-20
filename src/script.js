@@ -18,6 +18,7 @@ async function handleTodoData() {
     const todos = await getData();
     todos.forEach((todo) => {
       renderLine(todo);
+      todoArray.push(todo);
     });
   } catch (err) {
     console.log(err, "Произошла ошибка");
@@ -30,21 +31,29 @@ buttonFind.addEventListener("click", () => {
   if (inputFindValue) {
     const foundTodos = findAndGetElements(inputFindValue);
     console.log(foundTodos);
+
     if (foundTodos.length) {
-      spanDiv.innerHTML = "";
+      spanDiv.innerHTML = ""; // Очищаем содержимое перед добавлением найденных элементов
+
       foundTodos.forEach((element) => {
-        renderLine(element);
+        renderLine(element); // Рендерим каждый найденный элемент
       });
-      if (!clearButton) {
-        clearButton = createButton("Очистить", "clear");
+
+      // Проверяем, существует ли кнопка "Очистить" в DOM
+      const existingClearButton = document.querySelector(".clear"); // Ищем кнопку с классом "clear"
+      if (!existingClearButton) {
+        // Если кнопка не найдена, создаем её
+        const clearButton = createButton("Очистить", "clear");
         const bigContainer = document.querySelector(".big_container");
         bigContainer.appendChild(clearButton);
 
+        // Добавляем обработчик события для кнопки "Очистить"
         clearButton.addEventListener("click", () => {
-          spanDiv.innerHTML = "";
-          inputFind.value = "";
-          bigContainer.removeChild(clearButton);
-          clearButton = null;
+          spanDiv.innerHTML = ""; // Очищаем содержимое
+          inputFind.value = ""; // Очищаем поле ввода
+          bigContainer.removeChild(clearButton); // Удаляем кнопку "Очистить"
+
+          // Рендерим все элементы из todoArray
           todoArray.forEach((element) => {
             renderLine(element);
           });
@@ -55,7 +64,6 @@ buttonFind.addEventListener("click", () => {
     }
   }
 });
-
 function findAndGetElements(inputFindValue) {
   const foundTodosBySearch = [];
   todoArray.forEach((element) => {

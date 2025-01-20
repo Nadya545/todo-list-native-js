@@ -3,5 +3,5 @@ export const buttonCreate = document.querySelector(".create-button");
 export const spanDiv = document.querySelector(".span");
 export const inputFind = document.querySelector(".input-find");
 export const buttonFind = document.querySelector(".button-find");
-export let clearButton;
+export let clearButton = null;
 export const url = "https://jsonplaceholder.typicode.com";
