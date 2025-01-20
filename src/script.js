@@ -16,15 +16,19 @@ export let todoArray = [];
 async function handleTodoData() {
   try {
     const todos = await getData();
-    todos.forEach((todo) => {
-      renderLine(todo);
-      todoArray.push(todo);
-    });
+    renderAllTodos(todos);
+    todoArray.push(...todos);
   } catch (err) {
     console.log(err, "Произошла ошибка");
   }
 }
 handleTodoData();
+
+function renderAllTodos(todos) {
+  todos.forEach((element) => {
+    renderLine(element);
+  });
+}
 
 buttonFind.addEventListener("click", () => {
   let inputFindValue = inputFind.value.trim();
@@ -34,10 +38,7 @@ buttonFind.addEventListener("click", () => {
 
     if (foundTodos.length) {
       spanDiv.innerHTML = ""; // Очищаем содержимое перед добавлением найденных элементов
-
-      foundTodos.forEach((element) => {
-        renderLine(element); // Рендерим каждый найденный элемент
-      });
+      renderAllTodos(foundTodos);
 
       // Проверяем, существует ли кнопка "Очистить" в DOM
       const existingClearButton = document.querySelector(".clear"); // Ищем кнопку с классом "clear"
@@ -54,9 +55,7 @@ buttonFind.addEventListener("click", () => {
           bigContainer.removeChild(clearButton); // Удаляем кнопку "Очистить"
 
           // Рендерим все элементы из todoArray
-          todoArray.forEach((element) => {
-            renderLine(element);
-          });
+          renderAllTodos(todoArray);
         });
       }
     } else {
@@ -67,7 +66,7 @@ buttonFind.addEventListener("click", () => {
 function findAndGetElements(inputFindValue) {
   const foundTodosBySearch = [];
   todoArray.forEach((element) => {
-    if (element.title.includes(inputFindValue)) {
+    if (element.title?.includes(inputFindValue)) {
       foundTodosBySearch.push(element);
     }
   });
