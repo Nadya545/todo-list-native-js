@@ -4,3 +4,4 @@ import "./api.js";
 import "./script.js";
 import "./helpers.js";
 import "./dto.js";
+import "./modal.js";
