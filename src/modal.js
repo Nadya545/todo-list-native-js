@@ -1,9 +1,8 @@
-let buttonModal = document.querySelector("#myBtn");
+const buttonModal = document.querySelector("#myBtn");
 function createModal(text = "", className = "") {
   const modal = document.createElement("div");
   modal.className = className;
 
-  modal.style.display = "none";
   modal.style.position = "fixed";
   modal.style.zIndex = "1";
   modal.style.left = "0";
@@ -23,26 +22,27 @@ function createModal(text = "", className = "") {
   modalContent.style.width = "80%";
 
   const closeButton = document.createElement("span");
+
   closeButton.innerHTML = "&times";
   closeButton.style.cursor = "pointer";
   closeButton.style.float = "right";
   closeButton.style.fontSize = "28px";
-  closeButton.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
 
   const textElement = document.createTextNode(text);
-
+  closeButton.addEventListener("click", () => {
+    deleteModal(modal);
+  });
   document.body.appendChild(modal);
   modal.appendChild(modalContent);
   modalContent.appendChild(textElement);
   modalContent.appendChild(closeButton);
-
   return modal;
 }
 
-let modal = createModal("Это модальное окно", "myModal");
-
 buttonModal.addEventListener("click", () => {
-  modal.style.display = "block";
+  createModal("Это модальное окно", "myModal");
 });
+
+function deleteModal(modal) {
+  document.body.removeChild(modal);
+}
