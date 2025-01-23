@@ -8,6 +8,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"), // папка для выходных файлов
   },
+
   module: {
     rules: [
       {
@@ -20,6 +21,7 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html", // Укажите путь к вашему HTML файлу

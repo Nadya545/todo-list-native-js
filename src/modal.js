@@ -1,48 +1,67 @@
 const buttonModal = document.querySelector("#myBtn");
+
+function setStyle(element, styles) {
+  Object.assign(element.style, styles);
+}
+
 function createModal(text = "", className = "") {
   const modal = document.createElement("div");
   modal.className = className;
 
-  modal.style.position = "fixed";
-  modal.style.zIndex = "1";
-  modal.style.left = "0";
-  modal.style.top = "0";
-  modal.style.width = "100%";
-  modal.style.height = "100%";
-  modal.style.backgroundColor = "rgba(0,0,0,0.5)";
-  modal.style.padding = "20px";
-  modal.style.overflow = "auto";
+  setStyle(modal, {
+    position: "fixed",
+    zIndex: "1",
+    left: "0",
+    top: "0",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    padding: "20px",
+    overflow: "auto",
+  });
 
   const modalContent = document.createElement("div");
 
-  modalContent.style.backgroundColor = "white";
-  modalContent.style.margin = "15% auto";
-  modalContent.style.padding = "20px";
-  modalContent.style.border = "1px solid #888";
-  modalContent.style.width = "80%";
+  setStyle(modalContent, {
+    backgroundColor: "white",
+    margin: "15% auto",
+    padding: "20px",
+    border: "1px solid #888",
+    width: "80%",
+  });
 
   const closeButton = document.createElement("span");
 
   closeButton.innerHTML = "&times";
-  closeButton.style.cursor = "pointer";
-  closeButton.style.float = "right";
-  closeButton.style.fontSize = "28px";
 
-  const textElement = document.createTextNode(text);
+  setStyle(closeButton, {
+    cursor: "pointer",
+    float: "right",
+    fontSize: "28px",
+  });
+
+  const textElement = document.createElement("div");
+  textElement.textContent = text;
+
   closeButton.addEventListener("click", () => {
     deleteModal(modal);
   });
-  document.body.appendChild(modal);
-  modal.appendChild(modalContent);
-  modalContent.appendChild(textElement);
+
   modalContent.appendChild(closeButton);
-  return modal;
+  modalContent.appendChild(textElement);
+  modal.appendChild(modalContent);
+  document.body.appendChild(modal);
 }
 
-buttonModal.addEventListener("click", () => {
+buttonModal.addEventListener("click", handleButtonClick);
+
+function handleButtonClick() {
+  console.log("клик по кнопке");
   createModal("Это модальное окно", "myModal");
-});
+}
 
 function deleteModal(modal) {
-  document.body.removeChild(modal);
+  if (modal && modal.parentNode) {
+    document.body.removeChild(modal);
+  }
 }
