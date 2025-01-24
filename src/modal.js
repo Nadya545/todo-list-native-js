@@ -1,10 +1,12 @@
+import { createButton } from "./сonstructorElement";
+import { todoArray } from "./script";
 const buttonModal = document.querySelector("#myBtn");
 
 function setStyle(element, styles) {
   Object.assign(element.style, styles);
 }
 
-function createModal(text = "", className = "") {
+export function createModal(text = "", className = "") {
   const modal = document.createElement("div");
   modal.className = className;
 
@@ -40,15 +42,25 @@ function createModal(text = "", className = "") {
     fontSize: "28px",
   });
 
-  const textElement = document.createElement("div");
-  textElement.textContent = text;
+  const inputModal = document.createElement("input");
+  inputModal.value = text;
+  const saveButton = createButton("Сохранить");
 
   closeButton.addEventListener("click", () => {
     deleteModal(modal);
   });
-
+  saveButton.addEventListener("click", () => {
+    const newsTodo = inputModal.value.trim();
+    if (newsTodo) {
+      todoArray.forEach((todo) => {
+        todo = newsTodo;
+        inputModal.value = "";
+      });
+    }
+  });
   modalContent.appendChild(closeButton);
-  modalContent.appendChild(textElement);
+  modalContent.appendChild(inputModal);
+  modalContent.appendChild(saveButton);
   modal.appendChild(modalContent);
   document.body.appendChild(modal);
 }
@@ -61,7 +73,5 @@ function handleButtonClick() {
 }
 
 function deleteModal(modal) {
-  if (modal && modal.parentNode) {
-    document.body.removeChild(modal);
-  }
+  document.body.removeChild(modal);
 }

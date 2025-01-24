@@ -10,6 +10,8 @@ import {
   buttonFind,
   clearButton,
 } from "./const.js";
+import { createModal, textElement } from "./modal.js";
+
 export const textAll = [];
 export let todoArray = [];
 
@@ -100,12 +102,14 @@ function renderLine(todo) {
   }
   const deleteButton = createButton("Корзиночка", "button deleted-button");
   const buttonComplete = createButton("Завершить дело");
+  const buttonRedact = createButton("Редактировать");
   const textDiv = createDiv(line, "line");
 
   spanDiv.appendChild(container);
   container.appendChild(textDiv);
   container.appendChild(deleteButton);
   container.appendChild(buttonComplete);
+  container.appendChild(buttonRedact);
 
   deleteButton.addEventListener("click", () => {
     spanDiv.removeChild(container);
@@ -114,6 +118,10 @@ function renderLine(todo) {
   buttonComplete.addEventListener("click", () => {
     completed = setStylesCompletedTodo(completed, container);
     textDiv.textContent = formTextLine(todo, completed);
+  });
+
+  buttonRedact.addEventListener("click", () => {
+    createModal(formTextLine(todo), "myModal");
   });
 }
 
