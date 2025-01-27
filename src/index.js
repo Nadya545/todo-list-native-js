@@ -5,3 +5,4 @@ import "./script.js";
 import "./helpers.js";
 import "./dto.js";
 import "./modal.js";
+import "./loader.js";

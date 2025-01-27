@@ -16,12 +16,16 @@ export const textAll = [];
 export let todoArray = [];
 
 async function handleTodoData() {
+  document.querySelector(".loader").style.display = "flex";
   try {
     const todos = await getData();
     renderAllTodos(todos);
     todoArray.push(...todos);
   } catch (err) {
     console.log(err, "Произошла ошибка");
+  } finally {
+    document.querySelector(".loader").style.display = "none";
+    document.querySelector(".content").style.display = "block";
   }
 }
 handleTodoData();
