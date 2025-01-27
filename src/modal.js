@@ -1,12 +1,14 @@
 import { createButton } from "./сonstructorElement";
 import { todoArray } from "./script";
+import { renderAllTodos } from "./script";
+import { renderLine } from "./script";
 const buttonModal = document.querySelector("#myBtn");
 
 function setStyle(element, styles) {
   Object.assign(element.style, styles);
 }
 
-export function createModal(text = "", className = "") {
+export function createModal(todoId, text = "", className = "") {
   const modal = document.createElement("div");
   modal.className = className;
 
@@ -49,20 +51,29 @@ export function createModal(text = "", className = "") {
   closeButton.addEventListener("click", () => {
     deleteModal(modal);
   });
+
   saveButton.addEventListener("click", () => {
     const newsTodo = inputModal.value.trim();
     if (newsTodo) {
-      todoArray.forEach((todo) => {
-        todo = newsTodo;
-        inputModal.value = "";
-      });
+      mutateTodoById(todoId, newsTodo); // Передаем идентификатор и новое значение
+      renderAllTodos(todoArray); // Обновляем отображение всех задач
+      deleteModal(modal); // Зак
     }
   });
+
   modalContent.appendChild(closeButton);
   modalContent.appendChild(inputModal);
   modalContent.appendChild(saveButton);
   modal.appendChild(modalContent);
   document.body.appendChild(modal);
+
+  function mutateTodoById(todoId, newTitle) {
+    todoArray.forEach((todo) => {
+      if (todo.id === todoId) {
+        todo.title = newTitle;
+      }
+    });
+  }
 }
 
 buttonModal.addEventListener("click", handleButtonClick);

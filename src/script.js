@@ -25,8 +25,40 @@ async function handleTodoData() {
   }
 }
 handleTodoData();
+export function renderLine(todo) {
+  if (!checkIsObject(todo)) return;
+  let completed = todo.completed;
 
-function renderAllTodos(todos) {
+  const line = formTextLine(todo, completed);
+  const container = createDiv("", "container");
+  if (completed) {
+    container.style.textDecoration = "line-through";
+  }
+  const deleteButton = createButton("Корзиночка", "button deleted-button");
+  const buttonComplete = createButton("Завершить дело");
+  const buttonRedact = createButton("Редактировать");
+  const textDiv = createDiv(line, "line");
+
+  spanDiv.appendChild(container);
+  container.appendChild(textDiv);
+  container.appendChild(deleteButton);
+  container.appendChild(buttonComplete);
+  container.appendChild(buttonRedact);
+
+  deleteButton.addEventListener("click", () => {
+    spanDiv.removeChild(container);
+  });
+
+  buttonComplete.addEventListener("click", () => {
+    completed = setStylesCompletedTodo(completed, container);
+    textDiv.textContent = formTextLine(todo, completed);
+  });
+
+  buttonRedact.addEventListener("click", () => {
+    createModal(todo.id, todo.title, "myModal");
+  });
+}
+export function renderAllTodos(todos) {
   todos.forEach((element) => {
     renderLine(element);
   });
@@ -89,40 +121,6 @@ function setStylesCompletedTodo(completed, element) {
   }
 
   return !completed;
-}
-
-function renderLine(todo) {
-  if (!checkIsObject(todo)) return;
-  let completed = todo.completed;
-
-  const line = formTextLine(todo, completed);
-  const container = createDiv("", "container");
-  if (completed) {
-    container.style.textDecoration = "line-through";
-  }
-  const deleteButton = createButton("Корзиночка", "button deleted-button");
-  const buttonComplete = createButton("Завершить дело");
-  const buttonRedact = createButton("Редактировать");
-  const textDiv = createDiv(line, "line");
-
-  spanDiv.appendChild(container);
-  container.appendChild(textDiv);
-  container.appendChild(deleteButton);
-  container.appendChild(buttonComplete);
-  container.appendChild(buttonRedact);
-
-  deleteButton.addEventListener("click", () => {
-    spanDiv.removeChild(container);
-  });
-
-  buttonComplete.addEventListener("click", () => {
-    completed = setStylesCompletedTodo(completed, container);
-    textDiv.textContent = formTextLine(todo, completed);
-  });
-
-  buttonRedact.addEventListener("click", () => {
-    createModal(formTextLine(todo), "myModal");
-  });
 }
 
 buttonCreate.addEventListener("click", () => {
