@@ -5,9 +5,16 @@ export function createDiv(text = "", className = "") {
   return lineDiv;
 }
 
-export function createButton(text = "", className = "") {
+export function createButton(
+  text = "",
+  className = "",
+  size = "medium",
+  color = "primary"
+) {
   const inputElement = document.createElement("button");
   inputElement.className = className;
   inputElement.textContent = text;
+  inputElement.setAttribute("data-size", size);
+  inputElement.setAttribute("data-color", color);
   return inputElement;
 }

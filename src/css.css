@@ -1,6 +1,13 @@
+body,
+html {
+  width: 100%;
+  height: auto;
+}
 .line {
   font-size: large;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  width: 60%;
 }
 .input-find {
   width: 80%;
@@ -13,8 +20,11 @@
 .clear {
   height: 35px;
 }
+.container {
+  display: flex;
+  justify-content: space-around;
+}
 .modal {
-  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -22,7 +32,8 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(58, 194, 221, 0.5);
+  padding: 20px;
 }
 .modal_content {
   background-color: #fefefe;
@@ -36,6 +47,7 @@
   float: right;
   font-size: 28px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .loader {
@@ -51,6 +63,16 @@
   transform: translate(-50%, -50%);
 }
 
+.content {
+  background-color: rgb(241, 225, 241);
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -59,6 +81,35 @@
     transform: rotate(360deg);
   }
 }
-.content {
-  display: none;
+
+button[data-size="small"] {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+button[data-size="medium"] {
+  padding: 8px 15px;
+  font-size: 14px;
+}
+
+button[data-color="primary"] {
+  background-color: rgb(80, 80, 128);
+  color: white;
+  border: none;
+}
+
+button[data-color="correct"] {
+  background-color: rgb(156, 76, 156);
+  color: white;
+  border: none;
+}
+button[data-color="delete"] {
+  background-color: rgb(128, 57, 57);
+  color: white;
+  border: none;
+}
+.container_todo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

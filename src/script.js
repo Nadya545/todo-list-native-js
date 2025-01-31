@@ -11,12 +11,13 @@ import {
   clearButton,
 } from "./const.js";
 import { createModal, textElement } from "./modal.js";
+import { createLoader, hideLoader } from "./loader.js";
 
 export const textAll = [];
 export let todoArray = [];
 
 async function handleTodoData() {
-  document.querySelector(".loader").style.display = "flex";
+  createLoader();
   try {
     const todos = await getData();
     renderAllTodos(todos);
@@ -24,11 +25,11 @@ async function handleTodoData() {
   } catch (err) {
     console.log(err, "Произошла ошибка");
   } finally {
-    document.querySelector(".loader").style.display = "none";
-    document.querySelector(".content").style.display = "block";
+    hideLoader();
   }
 }
 handleTodoData();
+
 export function renderLine(todo) {
   if (!checkIsObject(todo)) return;
   let completed = todo.completed;
@@ -38,16 +39,29 @@ export function renderLine(todo) {
   if (completed) {
     container.style.textDecoration = "line-through";
   }
-  const deleteButton = createButton("Корзиночка", "button deleted-button");
-  const buttonComplete = createButton("Завершить дело");
-  const buttonRedact = createButton("Редактировать");
+  const buttonRedact = createButton(
+    "Редактировать",
+    "correct",
+    "medium",
+    "correct"
+  );
+
+  const buttonComplete = createButton("Завершить дело", "complete");
+
+  const deleteButton = createButton(
+    "Корзиночка",
+    "button deleted-button",
+    "medium",
+    "delete"
+  );
+
   const textDiv = createDiv(line, "line");
 
   spanDiv.appendChild(container);
   container.appendChild(textDiv);
-  container.appendChild(deleteButton);
-  container.appendChild(buttonComplete);
   container.appendChild(buttonRedact);
+  container.appendChild(buttonComplete);
+  container.appendChild(deleteButton);
 
   deleteButton.addEventListener("click", () => {
     spanDiv.removeChild(container);

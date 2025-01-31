@@ -1,7 +1,6 @@
 import { createButton } from "./сonstructorElement";
 import { todoArray } from "./script";
 import { renderAllTodos } from "./script";
-import { renderLine } from "./script";
 const buttonModal = document.querySelector("#myBtn");
 
 function setStyle(element, styles) {
@@ -10,32 +9,13 @@ function setStyle(element, styles) {
 
 export function createModal(todoId, text = "", className = "") {
   const modal = document.createElement("div");
-  modal.className = className;
-
-  setStyle(modal, {
-    position: "fixed",
-    zIndex: "1",
-    left: "0",
-    top: "0",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.5)",
-    padding: "20px",
-    overflow: "auto",
-  });
+  modal.className = "modal";
 
   const modalContent = document.createElement("div");
-
-  setStyle(modalContent, {
-    backgroundColor: "white",
-    margin: "15% auto",
-    padding: "20px",
-    border: "1px solid #888",
-    width: "80%",
-  });
+  modalContent.className = "modal_content";
 
   const closeButton = document.createElement("span");
-
+  closeButton.className = "close";
   closeButton.innerHTML = "&times";
 
   setStyle(closeButton, {
@@ -50,13 +30,15 @@ export function createModal(todoId, text = "", className = "") {
 
   closeButton.addEventListener("click", () => {
     deleteModal(modal);
+
+    return modal;
   });
 
   saveButton.addEventListener("click", () => {
-    const newsTodo = inputModal.value.trim();
-    if (newsTodo) {
-      mutateTodoById(todoId, newsTodo); // Передаем идентификатор и новое значение
-      renderAllTodos(todoArray); // Обновляем отображение всех задач
+    const newTitle = inputModal.value.trim();
+    if (newTitle) {
+      mutateTodoById(todoId, newTitle); // Передаем идентификатор и новое значение
+      rerenderTodos(); // Обновляем отображение всех задач
       deleteModal(modal); // Зак
     }
   });
@@ -66,21 +48,26 @@ export function createModal(todoId, text = "", className = "") {
   modalContent.appendChild(saveButton);
   modal.appendChild(modalContent);
   document.body.appendChild(modal);
+}
 
-  function mutateTodoById(todoId, newTitle) {
-    todoArray.forEach((todo) => {
-      if (todo.id === todoId) {
-        todo.title = newTitle;
-      }
-    });
-  }
+function mutateTodoById(todoId, newTitle) {
+  todoArray.forEach((todo) => {
+    if (todo.id === todoId) {
+      todo.title = newTitle;
+    }
+  });
+}
+function rerenderTodos() {
+  const spanDiv = document.querySelector(".container_todo");
+  spanDiv.innerHTML = "";
+  renderAllTodos(todoArray);
 }
 
 buttonModal.addEventListener("click", handleButtonClick);
 
 function handleButtonClick() {
   console.log("клик по кнопке");
-  createModal("Это модальное окно", "myModal");
+  createModal("Это модальное окно", "Это модалка)))))");
 }
 
 function deleteModal(modal) {
