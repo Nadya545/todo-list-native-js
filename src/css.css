@@ -1,13 +1,15 @@
-body,
-html {
-  width: 100%;
-  height: auto;
+
+html, body {
+  margin: 0; /* Убираем отступы */
+  padding: 0; /* Убираем внутренние отступы */
+  width: 100%; /* Устанавливаем ширину на 100% */
+  height: 100%; /
 }
 .line {
   font-size: large;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  width: 60%;
+  width: 100%;
 }
 .input-find {
   width: 80%;
@@ -22,7 +24,7 @@ html {
 }
 .container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .modal {
   position: fixed;
@@ -66,7 +68,7 @@ html {
 .content {
   background-color: rgb(241, 225, 241);
   width: 100%;
-  height: 100%;
+  height: auto;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -112,4 +114,41 @@ button[data-color="delete"] {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+#myBtn{
+  margin-left: 30px;
+  margin-top: 10px;
+  background-color: aliceblue;
+  border: 1px solid rgb(163, 176, 188);
+  height: 30px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.input-find, .input-create {
+  margin-left: 30px;
+}
+.create-button{
+   background-color: aliceblue;
+  border: 1px solid rgb(163, 176, 188);
+  height: 30px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.input-create{
+  height: 25px;
+}
+.button-find{
+   background-color: aliceblue;
+  border: 1px solid rgb(163, 176, 188);
+   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.cont_for_btn{
+  display: flex;
+  margin-right: 10px;
+  gap: 10px;
+}
+.mini_container{
+  display: flex;
+  width: 70%;
+  margin-left: 30px;
 }

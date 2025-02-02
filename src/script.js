@@ -19,6 +19,7 @@ export let todoArray = [];
 async function handleTodoData() {
   createLoader();
   try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const todos = await getData();
     renderAllTodos(todos);
     todoArray.push(...todos);
@@ -36,8 +37,10 @@ export function renderLine(todo) {
 
   const line = formTextLine(todo, completed);
   const container = createDiv("", "container");
+  const mini_container = createDiv("", "mini_container");
+  const container_for_btn = createDiv("", "cont_for_btn");
   if (completed) {
-    container.style.textDecoration = "line-through";
+    mini_container.style.textDecoration = "line-through";
   }
   const buttonRedact = createButton(
     "Редактировать",
@@ -57,18 +60,19 @@ export function renderLine(todo) {
 
   const textDiv = createDiv(line, "line");
 
+  mini_container.appendChild(textDiv);
+  container.appendChild(mini_container);
+  container_for_btn.appendChild(buttonRedact);
+  container_for_btn.appendChild(buttonComplete);
+  container_for_btn.appendChild(deleteButton);
+  container.appendChild(container_for_btn);
   spanDiv.appendChild(container);
-  container.appendChild(textDiv);
-  container.appendChild(buttonRedact);
-  container.appendChild(buttonComplete);
-  container.appendChild(deleteButton);
-
   deleteButton.addEventListener("click", () => {
     spanDiv.removeChild(container);
   });
 
   buttonComplete.addEventListener("click", () => {
-    completed = setStylesCompletedTodo(completed, container);
+    completed = setStylesCompletedTodo(completed, mini_container);
     textDiv.textContent = formTextLine(todo, completed);
   });
 

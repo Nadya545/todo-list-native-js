@@ -37,9 +37,9 @@ export function createModal(todoId, text = "", className = "") {
   saveButton.addEventListener("click", () => {
     const newTitle = inputModal.value.trim();
     if (newTitle) {
-      mutateTodoById(todoId, newTitle); // Передаем идентификатор и новое значение
-      rerenderTodos(); // Обновляем отображение всех задач
-      deleteModal(modal); // Зак
+      mutateTodoById(todoId, newTitle);
+      rerenderTodos();
+      deleteModal(modal);
     }
   });
 
