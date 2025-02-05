@@ -17,7 +17,7 @@ export const textAll = [];
 export let todoArray = [];
 
 async function handleTodoData() {
-  createLoader();
+  const load = createLoader();
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const todos = await getData();
@@ -26,7 +26,7 @@ async function handleTodoData() {
   } catch (err) {
     console.log(err, "Произошла ошибка");
   } finally {
-    hideLoader();
+    hideLoader(load);
   }
 }
 handleTodoData();

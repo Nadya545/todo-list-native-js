@@ -1,6 +1,7 @@
 import { createButton } from "./сonstructorElement";
 import { todoArray } from "./script";
 import { renderAllTodos } from "./script";
+import { createInput } from "./сonstructorElement";
 const buttonModal = document.querySelector("#myBtn");
 
 function setStyle(element, styles) {
@@ -14,19 +15,14 @@ export function createModal(todoId, text = "", className = "") {
   const modalContent = document.createElement("div");
   modalContent.className = "modal_content";
 
+  const inputModal = createInput("", "input-modal");
+  inputModal.value = text;
+
+  const saveButton = createButton("Сохранить", "save-button");
+
   const closeButton = document.createElement("span");
   closeButton.className = "close";
   closeButton.innerHTML = "&times";
-
-  setStyle(closeButton, {
-    cursor: "pointer",
-    float: "right",
-    fontSize: "28px",
-  });
-
-  const inputModal = document.createElement("input");
-  inputModal.value = text;
-  const saveButton = createButton("Сохранить");
 
   closeButton.addEventListener("click", () => {
     deleteModal(modal);

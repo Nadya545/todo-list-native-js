@@ -1,8 +1,8 @@
 export function createDiv(text = "", className = "") {
-  const lineDiv = document.createElement("div");
-  lineDiv.className = className;
-  lineDiv.textContent = text;
-  return lineDiv;
+  const divElement = document.createElement("div");
+  divElement.className = className;
+  divElement.textContent = text;
+  return divElement;
 }
 
 export function createButton(
@@ -11,10 +11,17 @@ export function createButton(
   size = "medium",
   color = "primary"
 ) {
-  const inputElement = document.createElement("button");
+  const buttonElement = document.createElement("button");
+  buttonElement.className = className;
+  buttonElement.textContent = text;
+  buttonElement.setAttribute("data-size", size);
+  buttonElement.setAttribute("data-color", color);
+  return buttonElement;
+}
+
+export function createInput(text = "", className = "", size = "", color = "") {
+  const inputElement = document.createElement("input");
   inputElement.className = className;
   inputElement.textContent = text;
-  inputElement.setAttribute("data-size", size);
-  inputElement.setAttribute("data-color", color);
   return inputElement;
 }

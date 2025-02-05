@@ -1,9 +1,13 @@
+import { createDiv } from "./сonstructorElement";
+
 export function createLoader() {
-  const loader = document.querySelector(".loader");
+  const loader = createDiv("", "loader");
   document.body.appendChild(loader);
+  return loader;
 }
 
-export function hideLoader() {
-  const loader = document.querySelector(".loader");
-  document.body.removeChild(loader);
+export function hideLoader(loader) {
+  if (loader) {
+    document.body.removeChild(loader);
+  }
 }
