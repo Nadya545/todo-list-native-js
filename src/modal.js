@@ -15,7 +15,7 @@ export function createModal(todoId, text = "", className = "") {
   const modalContent = document.createElement("div");
   modalContent.className = "modal_content";
 
-  const inputModal = createInput("", "input-modal");
+  const inputModal = createInput(text, "input-modal", "medium");
   inputModal.value = text;
 
   const saveButton = createButton("Сохранить", "save-button");

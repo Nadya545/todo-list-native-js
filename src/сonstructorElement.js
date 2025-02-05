@@ -19,9 +19,10 @@ export function createButton(
   return buttonElement;
 }
 
-export function createInput(text = "", className = "", size = "", color = "") {
+export function createInput(text = "", className = "", size = "medium") {
   const inputElement = document.createElement("input");
   inputElement.className = className;
   inputElement.textContent = text;
+  inputElement.setAttribute("data-size", size);
   return inputElement;
 }

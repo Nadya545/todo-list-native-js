@@ -120,6 +120,11 @@ button[data-color="delete"] {
   color: white;
   border: none;
 }
+
+input[data-size="medium"] {
+  background-color: hotpink;
+  font-size: 14px;
+}
 .container_todo {
   display: flex;
   flex-direction: column;
