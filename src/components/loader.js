@@ -1,4 +1,4 @@
-import { createDiv } from "./сonstructorElement";
+import { createDiv } from "../utils/сonstructorElement";
 
 export function createLoader() {
   const loader = createDiv("", "loader");

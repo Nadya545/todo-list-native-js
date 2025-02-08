@@ -31,7 +31,7 @@ module.exports = {
       chunkFilename: "[id].css",
     }),
     new CopyWebpackPlugin({
-      patterns: [{ from: "src/css.css", to: "css.css" }],
+      patterns: [{ from: "src/styles/css.css", to: "css.css" }],
     }),
   ],
   mode: "development", // или 'production'

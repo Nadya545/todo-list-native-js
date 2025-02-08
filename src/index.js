@@ -1,8 +1,10 @@
-import "./сonstructorElement.js";
-import "./const.js";
-import "./api.js";
+import "./utils/сonstructorElement.js";
+import "./constants/const.js";
+import "./services/api.js";
 import "./script.js";
-import "./helpers.js";
-import "./dto.js";
-import "./modal.js";
-import "./loader.js";
+import "./utils/helpers.js";
+import "./utils/dto.js";
+import "./components/modal.js";
+import "./components/loader.js";
+import "./components/todoItem.js";
+import "./store/todos.js";

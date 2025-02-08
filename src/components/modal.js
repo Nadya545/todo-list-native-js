@@ -1,12 +1,13 @@
-import { createButton } from "./сonstructorElement";
-import { todoArray } from "./script";
-import { renderAllTodos } from "./script";
-import { createInput } from "./сonstructorElement";
+import { createButton } from "../utils/сonstructorElement";
+//import { todoArray } from "../script";
+import { getTodos } from "../store/todos";
+import { renderAllTodos } from "../script";
+import { createInput } from "../utils/сonstructorElement";
 const buttonModal = document.querySelector("#myBtn");
 
-function setStyle(element, styles) {
+/*function setStyle(element, styles) {
   Object.assign(element.style, styles);
-}
+}*/
 
 export function createModal(todoId, text = "", className = "") {
   const modal = document.createElement("div");
@@ -46,7 +47,7 @@ export function createModal(todoId, text = "", className = "") {
 }
 
 function mutateTodoById(todoId, newTitle) {
-  todoArray.forEach((todo) => {
+  getTodos().forEach((todo) => {
     if (todo.id === todoId) {
       todo.title = newTitle;
     }
@@ -54,7 +55,9 @@ function mutateTodoById(todoId, newTitle) {
 }
 function rerenderTodos() {
   const spanDiv = document.querySelector(".container_todo");
-  spanDiv.innerHTML = "";
+  while (spanDiv.firstChild) {
+    spanDiv.removeChild(spanDiv.firstChild);
+  }
   renderAllTodos(todoArray);
 }
 
