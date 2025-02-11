@@ -1,6 +1,4 @@
 import { todoDto } from "./utils/dto.js";
-import { createDiv, createButton } from "./utils/сonstructorElement.js";
-import { checkIsObject } from "./utils/helpers.js";
 import { fetchTodos } from "./services/api.js";
 import {
   inputCreate,
@@ -10,20 +8,27 @@ import {
   buttonFind,
   clearButton,
 } from "./constants/const.js";
-import { createModal, textElement } from "./components/modal.js";
-import { createLoader, hideLoader } from "./components/loader.js";
-import { createTodoElement } from "./components/todoItem.js";
+import { createLoader, hideLoader } from "./components/loader/loader.js";
+import { createTodoElement } from "./components/todoItem/todoItem.js";
+import {
+  getTodos,
+  addTodo,
+  setOnChangeCallback,
+  findAndGetElements,
+} from "./store/todos.js";
+import { createButton } from "./ui/button.js";
+import { buttonSettings } from "./components/todoItem/const.js";
 
-export const textAll = [];
-let todoArray = [];
+setOnChangeCallback(() => {
+  renderAllTodos(getTodos());
+});
 
 async function handleTodoData() {
   const load = createLoader();
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const todos = await fetchTodos();
-    renderAllTodos(todos);
-    todoArray.push(...todos);
+    todos.forEach(addTodo);
   } catch (err) {
     console.log(err, "Произошла ошибка");
   } finally {
@@ -32,82 +37,67 @@ async function handleTodoData() {
 }
 handleTodoData();
 
-export function renderLine(todo) {
-  if (!checkIsObject(todo)) return;
-
-  spanDiv.appendChild(createTodoElement(todo));
-}
-
-export function renderAllTodos(todos) {
-  todos.forEach((element) => {
-    renderLine(element);
-  });
-}
-
-buttonFind.addEventListener("click", () => {
-  let inputFindValue = inputFind.value.trim();
-  if (inputFindValue) {
-    const foundTodos = findAndGetElements(inputFindValue);
-    console.log(foundTodos);
-
-    if (foundTodos.length) {
-      while (spanDiv.firstChild) {
-        spanDiv.removeChild(spanDiv.firstChild);
-      } // Очищаем содержимое перед добавлением найденных элементов
-      renderAllTodos(foundTodos);
-
-      // Проверяем, существует ли кнопка "Очистить" в DOM
-      const existingClearButton = document.querySelector(".clear"); // Ищем кнопку с классом "clear"
-      if (!existingClearButton) {
-        // Если кнопка не найдена, создаем её
-        const clearButton = createButton("Очистить", "clear");
-        const bigContainer = document.querySelector(".big_container");
-        bigContainer.appendChild(clearButton);
-
-        // Добавляем обработчик события для кнопки "Очистить"
-        clearButton.addEventListener("click", () => {
-          while (spanDiv.firstChild) {
-            spanDiv.removeChild(spanDiv.firstChild);
-          } // Очищаем содержимое
-          inputFind.value = ""; // Очищаем поле ввода
-          bigContainer.removeChild(clearButton); // Удаляем кнопку "Очистить"
-
-          // Рендерим все элементы из todoArray
-          renderAllTodos(todoArray);
-        });
-      }
-    } else {
-      alert("Нет никаких совпадений !!!!");
-    }
-  }
-});
-function findAndGetElements(inputFindValue) {
-  const foundTodosBySearch = [];
-  todoArray.forEach((element) => {
-    if (element.title?.includes(inputFindValue)) {
-      foundTodosBySearch.push(element);
-    }
-  });
-  return foundTodosBySearch;
-}
-
-buttonCreate.addEventListener("click", () => {
-  let inputValue = inputCreate.value.trim();
-
-  if (inputValue) {
-    const newTodo = todoDto(1, inputValue);
-    todoArray.unshift(newTodo);
-
-    inputCreate.value = "";
-    renderLines();
-  } else {
-    alert("Введите текст для добавления строки!"); // Уведомление, если поле пустое
-  }
-});
-
-function renderLines() {
+function renderAllTodos(todos) {
   while (spanDiv.firstChild) {
     spanDiv.removeChild(spanDiv.firstChild);
   }
-  todoArray.forEach((todo) => renderLine(todo));
+
+  const fragment = document.createDocumentFragment();
+  todos.forEach((todo) => {
+    fragment.appendChild(createTodoElement(todo));
+  });
+
+  spanDiv.appendChild(fragment);
 }
+
+function clearElement(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+// для кнопки очистить
+function addClearButton(spanDiv, inputFind) {
+  let clearButton = document.querySelector(".clear");
+  if (!clearButton) {
+    clearButton = createButton({
+      ...buttonSettings.clear,
+
+      onClick: () => handleClear(spanDiv, inputFind, clearButton),
+    });
+    document.querySelector(".big_container").appendChild(clearButton);
+  }
+}
+
+function handleClear(spanDiv, inputFind, clearButton) {
+  clearElement(spanDiv);
+  inputFind.value = "";
+  renderAllTodos(getTodos());
+  if (clearButton) {
+    clearButton.remove();
+  }
+}
+
+buttonCreate.addEventListener("click", () => {
+  const inputValue = inputCreate.value.trim();
+  if (inputValue) {
+    addTodo(todoDto(11, inputValue));
+    inputCreate.value = "";
+  } else {
+    alert("Введите текст для добавления строки!");
+  }
+});
+
+buttonFind.addEventListener("click", () => {
+  const inputFindValue = inputFind.value.trim();
+  if (!inputFindValue) return;
+
+  const foundTodos = findAndGetElements(inputFindValue);
+
+  clearElement(spanDiv);
+  if (foundTodos.length) {
+    renderAllTodos(foundTodos);
+    addClearButton();
+  } else {
+    alert("Нет никаких совпадений!");
+  }
+});

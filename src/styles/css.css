@@ -121,6 +121,12 @@ button[data-color="delete"] {
   border: none;
 }
 
+button[data-color="clear"] {
+  background-color: rgb(21, 11, 11);
+  color: white;
+  border: none;
+}
+
 input[data-size="medium"] {
   background-color: hotpink;
   font-size: 14px;
