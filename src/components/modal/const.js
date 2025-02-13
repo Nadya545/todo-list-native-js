@@ -12,3 +12,14 @@ export const modalButtonSettings = {
     color: "primary",
   },
 };
+
+export const openModal = document.querySelector(".modal_btn");
+
+export const inputModalSettings = {
+  input_modal: {
+    text: "",
+    size: "medium",
+    color: "input_modal",
+    className: "input-modal",
+  },
+};

@@ -96,7 +96,7 @@ buttonFind.addEventListener("click", () => {
   clearElement(spanDiv);
   if (foundTodos.length) {
     renderAllTodos(foundTodos);
-    addClearButton();
+    addClearButton(spanDiv, inputFind);
   } else {
     alert("Нет никаких совпадений!");
   }

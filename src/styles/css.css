@@ -127,9 +127,10 @@ button[data-color="clear"] {
   border: none;
 }
 
-input[data-size="medium"] {
-  background-color: hotpink;
+input[data-color="input_modal"] {
+  background-color: rgb(143, 49, 96);
   font-size: 14px;
+  color: black;
 }
 .container_todo {
   display: flex;
@@ -176,3 +177,5 @@ input[data-size="medium"] {
 .input-modal{
   height: 26px;
 }
+
+

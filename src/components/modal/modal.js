@@ -1,7 +1,8 @@
 import { createButton } from "../../ui/button.js";
 import { createInput } from "../../ui/input.js";
 import { updateTodo } from "../../store/todos.js";
-import { modalButtonSettings } from "./const.js";
+import { modalButtonSettings, openModal } from "./const.js";
+import { inputModalSettings } from "./const.js";
 
 export function createModal(todoId, text = "") {
   const modal = document.createElement("div");
@@ -10,7 +11,10 @@ export function createModal(todoId, text = "") {
   const modalContent = document.createElement("div");
   modalContent.className = "modal_content";
 
-  const inputModal = createInput(text, "input-modal", "medium");
+  const inputModal = createInput({
+    ...inputModalSettings.input_modal,
+    text: text,
+  });
 
   // создаём кнопку с настройками (их выносим в отдельную переменную, чтобы было удобнее)
   // также пробрасываем функцию, которая применится к созданной кнопке (чтобы не писать тыщу раз addEventListener)
@@ -42,3 +46,13 @@ function handleSaveClick(todoId, inputModal, modal) {
 function handleCloseClick(modal) {
   deleteModal(modal);
 }
+
+function deleteModal(modal) {
+  if (modal) {
+    modal.parentNode.removeChild(modal);
+  }
+}
+
+openModal.addEventListener("click", () => {
+  createModal("", "Это моя модалка!!!!");
+});
