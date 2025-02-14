@@ -13,14 +13,15 @@ import { createTodoElement } from "./components/todoItem/todoItem.js";
 import {
   getTodos,
   addTodo,
+  updateTodo,
   setOnChangeCallback,
   findAndGetElements,
 } from "./store/todos.js";
 import { createButton } from "./ui/button.js";
 import { buttonSettings } from "./components/todoItem/const.js";
 
-setOnChangeCallback(() => {
-  renderAllTodos(getTodos());
+setOnChangeCallback((updateTodo) => {
+  renderAllTodos(updateTodo);
 });
 
 async function handleTodoData() {

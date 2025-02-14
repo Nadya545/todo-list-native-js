@@ -14,25 +14,33 @@ export function setOnChangeCallback(callback) {
 
 export function addTodo(todo) {
   todoArray.unshift(todo);
-  if (onChangeCallback) onChangeCallback();
+  if (onChangeCallback) onChangeCallback([...todoArray]);
 }
 
 export function removeTodo(id) {
   todoArray = todoArray.filter((todo) => todo.id !== id);
   if (onChangeCallback) onChangeCallback();
 }
-
-export function updateTodo(id, newTitle) {
+export function updateTodo(id, newTitle, searchValue = "") {
   const todo = todoArray.find((todo) => todo.id === id);
   if (todo) {
-    todo.title = newTitle;
-    if (onChangeCallback) onChangeCallback();
+    todo.title = newTitle; // Update the title
   }
+  const filteredTodos = getTodos().filter((todo) =>
+    todo.title.includes(searchValue)
+  );
+
+  if (onChangeCallback) onChangeCallback(filteredTodos);
 }
 
 export function findAndGetElements(searchValue) {
   isFiltered = true;
-  return getTodos().filter((todo) => todo.title.includes(searchValue));
+  const filteredTodos = getTodos().filter((todo) =>
+    todo.title.includes(searchValue)
+  );
+  if (onChangeCallback) onChangeCallback(filteredTodos);
+
+  return filteredTodos;
 }
 
 export function getIsFiltered() {

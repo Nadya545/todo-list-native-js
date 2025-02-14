@@ -40,10 +40,10 @@ function handleDeleteClick(todo) {
   };
 }
 
-function handleCompleteClick(todo, miniContainer, textDiv) {
+function handleCompleteClick(todo, miniContainer, textDiv, searchValue) {
   return () => {
     todo.completed = !todo.completed;
-    updateTodo(todo.id, todo.title, todo.completed);
+    updateTodo(todo.id, todo.title, searchValue);
     applyCompletedStyles(todo.completed, miniContainer);
     textDiv.textContent = formTextLine(todo);
   };
