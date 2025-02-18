@@ -94,8 +94,8 @@ buttonFind.addEventListener("click", () => {
 
   const foundTodos = findAndGetElements(inputFindValue);
 
-  clearElement(spanDiv);
   if (foundTodos.length) {
+    clearElement(spanDiv);
     renderAllTodos(foundTodos);
     addClearButton(spanDiv, inputFind);
   } else {

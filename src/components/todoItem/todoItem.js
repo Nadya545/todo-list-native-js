@@ -4,6 +4,7 @@ import { removeTodo, updateTodo } from "../../store/todos.js";
 import { createModal } from "../modal/modal.js";
 import { createButton } from "../../ui/button.js";
 import { buttonSettings } from "./const.js";
+import { inputFind } from "../../constants/const.js";
 
 export function createTodoElement(todo) {
   const container = createDiv("", "container");
@@ -18,7 +19,7 @@ export function createTodoElement(todo) {
   });
   const buttonComplete = createButton({
     ...buttonSettings.complete,
-    onClick: handleCompleteClick(todo, miniContainer, textDiv),
+    onClick: handleCompleteClick(todo, miniContainer, textDiv, inputFind),
   });
   const deleteButton = createButton({
     ...buttonSettings.delete,
@@ -40,9 +41,10 @@ function handleDeleteClick(todo) {
   };
 }
 
-function handleCompleteClick(todo, miniContainer, textDiv, searchValue) {
+function handleCompleteClick(todo, miniContainer, textDiv, inputFind) {
   return () => {
     todo.completed = !todo.completed;
+    const searchValue = inputFind.value.trim();
     updateTodo(todo.id, todo.title, searchValue);
     applyCompletedStyles(todo.completed, miniContainer);
     textDiv.textContent = formTextLine(todo);

@@ -14,23 +14,19 @@ export function setOnChangeCallback(callback) {
 
 export function addTodo(todo) {
   todoArray.unshift(todo);
-  if (onChangeCallback) onChangeCallback([...todoArray]);
+  notifyChange(todoArray);
 }
 
 export function removeTodo(id) {
   todoArray = todoArray.filter((todo) => todo.id !== id);
-  if (onChangeCallback) onChangeCallback();
+  notifyChange(todoArray);
 }
-export function updateTodo(id, newTitle, searchValue = "") {
+export function updateTodo(id, newTitle) {
   const todo = todoArray.find((todo) => todo.id === id);
   if (todo) {
     todo.title = newTitle; // Update the title
   }
-  const filteredTodos = getTodos().filter((todo) =>
-    todo.title.includes(searchValue)
-  );
-
-  if (onChangeCallback) onChangeCallback(filteredTodos);
+  notifyChange(todoArray);
 }
 
 export function findAndGetElements(searchValue) {
@@ -38,11 +34,13 @@ export function findAndGetElements(searchValue) {
   const filteredTodos = getTodos().filter((todo) =>
     todo.title.includes(searchValue)
   );
-  if (onChangeCallback) onChangeCallback(filteredTodos);
-
+  notifyChange(filteredTodos);
   return filteredTodos;
 }
 
 export function getIsFiltered() {
   return isFiltered;
+}
+function notifyChange(todos = [...todoArray]) {
+  if (onChangeCallback) onChangeCallback(todos);
 }
