@@ -81,7 +81,8 @@ function handleClear(spanDiv, inputFind, clearButton) {
 buttonCreate.addEventListener("click", () => {
   const inputValue = inputCreate.value.trim();
   if (inputValue) {
-    addTodo(todoDto(11, inputValue));
+    const newTodo = todoDto(11, inputValue);
+    addTodo(newTodo);
     inputCreate.value = "";
   } else {
     alert("Введите текст для добавления строки!");
