@@ -13,6 +13,10 @@ export function getTodos() {
   return isFiltered ? filteredTodoArray : todoArray;
 }
 
+export function resetFilter() {
+  isFiltered = false;
+}
+
 export function setOnChangeCallback(callback) {
   onChangeCallback = callback;
 }
@@ -60,6 +64,6 @@ export function findAndGetElements(searchValue) {
 export function getIsFiltered() {
   return isFiltered;
 }
-function notifyChange() {
+export function notifyChange() {
   if (onChangeCallback) onChangeCallback(getTodos());
 }
