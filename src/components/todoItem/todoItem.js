@@ -6,6 +6,18 @@ import { createButton } from "../../ui/button.js";
 import { buttonSettings } from "./const.js";
 import { inputFind } from "../../constants/const.js";
 
+export function createPagination(allPages, onPageChange) {
+  const paginationContainer = document.createElement("div");
+  paginationContainer.className = "pagination";
+  for (let i = 1; i <= allPages; i++) {
+    const buttonPagination = document.createElement("button");
+    buttonPagination.textContent = i;
+    buttonPagination.className = "button-pagination";
+    buttonPagination.addEventListener("click", () => onPageChange(i));
+    paginationContainer.appendChild(buttonPagination);
+  }
+  return paginationContainer;
+}
 export function createTodoElement(todo) {
   const container = createDiv("", "container");
   const miniContainer = createDiv("", "mini_container");

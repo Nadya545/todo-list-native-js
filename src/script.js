@@ -9,7 +9,10 @@ import {
   clearButton,
 } from "./constants/const.js";
 import { createLoader, hideLoader } from "./components/loader/loader.js";
-import { createTodoElement } from "./components/todoItem/todoItem.js";
+import {
+  createTodoElement,
+  createPagination,
+} from "./components/todoItem/todoItem.js";
 import {
   notifyChange,
   getTodos,
@@ -26,7 +29,7 @@ setOnChangeCallback((updateTodo) => {
   renderAllTodos(updateTodo);
 });
 
-async function handleTodoData(page) {
+async function handleTodoData(page = 1) {
   const load = createLoader();
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -41,13 +44,15 @@ async function handleTodoData(page) {
     hideLoader(load);
   }
 }
-handleTodoData(1);
+handleTodoData();
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const totalPages = 10;
+  await handleTodoData(1);
+});
 
 function renderAllTodos(todos, totalPages) {
-  while (spanDiv.firstChild) {
-    spanDiv.removeChild(spanDiv.firstChild);
-  }
-
+  clearElement(spanDiv);
   const fragment = document.createDocumentFragment();
   todos.forEach((todo) => {
     fragment.appendChild(createTodoElement(todo));
@@ -56,26 +61,6 @@ function renderAllTodos(todos, totalPages) {
   fragment.appendChild(pagination);
   spanDiv.appendChild(fragment);
 }
-
-function createPagination(allPages, onPageChange) {
-  const paginationContainer = document.createElement("div");
-  paginationContainer.className = "pagination";
-  for (let i = 1; i <= allPages; i++) {
-    const buttonPagination = document.createElement("button");
-    buttonPagination.textContent = i;
-    buttonPagination.className = "button-pagination";
-    buttonPagination.addEventListener("click", () => onPageChange(i));
-    paginationContainer.appendChild(buttonPagination);
-  }
-  return paginationContainer;
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const totalPages = 10;
-  /* const paginationContainer = createPagination(totalPages, handleTodoData);
-  document.body.appendChild(paginationContainer);*/
-  await handleTodoData(1);
-});
 
 function clearElement(element) {
   while (element.firstChild) {

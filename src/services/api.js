@@ -1,6 +1,6 @@
 import { url } from "../constants/const.js";
 export async function fetchTodos(page, limit = 20) {
-  const paginatedUrl = `${url}&_page=${page}&_limit=${limit}`;
+  const paginatedUrl = `${url}?_page=${page}&_limit=${limit}`;
   return fetch(paginatedUrl)
     .then((res) => {
       if (!res.ok) throw new Error(`Ошибка: ${res.status}`);

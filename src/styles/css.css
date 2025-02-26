@@ -178,4 +178,16 @@ input[data-color="input_modal"] {
   height: 26px;
 }
 
+.button-pagination{
+  border-radius: 40%;
+  width: 30px;
+  height: 30px;
+  background-color:pink
+}
+.pagination{
+  display: flex;
+  gap: 10px;
+  padding-left: 30px;
+}
+
 
