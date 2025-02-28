@@ -25,6 +25,10 @@ html, body {
 .container {
   display: flex;
   justify-content: space-between;
+
+}
+.mini_container{
+  border-bottom-color: aliceblue;
 }
 .modal {
   position: fixed;
@@ -76,7 +80,7 @@ align-self: flex-end;
 }
 
 .content {
-  background-color: rgb(241, 225, 241);
+  background: linear-gradient(to right, rgb(234, 247, 150),rgb(105, 187, 102));
   width: 100%;
   height: auto;
   margin: 0 auto;
@@ -104,21 +108,24 @@ button[data-size="medium"] {
   font-size: 14px;
 }
 
-button[data-color="primary"] {
-  background-color: rgb(80, 80, 128);
-  color: white;
-  border: none;
+button[data-color="correct"] {
+  background-color:rgb(105, 187, 102) ;
+  color: rgb(142, 125, 12);
+  border-color:rgb(142, 125, 12) ;
+  border-radius: 10%;
 }
 
-button[data-color="correct"] {
-  background-color: rgb(156, 76, 156);
-  color: white;
-  border: none;
+button[data-color="edit"] {
+  background-color: rgb(105, 187, 102);
+  color:rgb(156, 84, 39) ;
+   border-color:rgb(156, 84, 39) ;
+   border-radius: 10%;
 }
 button[data-color="delete"] {
-  background-color: rgb(128, 57, 57);
-  color: white;
-  border: none;
+  background-color: rgb(105, 187, 102);
+  color: red;
+  border-color: red;
+  border-radius: 10%;
 }
 
 button[data-color="clear"] {
@@ -151,18 +158,26 @@ input[data-color="input_modal"] {
   margin-left: 30px;
 }
 .create-button{
-   background-color: aliceblue;
-  border: 1px solid rgb(163, 176, 188);
+  background-color:rgb(207, 241, 135) ;
+  border-color: darkslategrey;
   height: 30px;
+    border-radius: 10%;
+    padding: 8px, 15px;
+  font-size: 14px;
+  width: 70px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .input-create{
   height: 25px;
 }
 .button-find{
-   background-color: aliceblue;
-  border: 1px solid rgb(163, 176, 188);
+   background-color:rgb(105, 187, 102) ;
+  border-color: darkslategrey;
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   border-radius: 10%;
+    padding: 8px, 15px;
+  font-size: 14px;
+  width: 70px;
 }
 .cont_for_btn{
   display: flex;
@@ -179,10 +194,10 @@ input[data-color="input_modal"] {
 }
 
 .button-pagination{
-  border-radius: 40%;
-  width: 30px;
-  height: 30px;
-  background-color:pink
+  border-radius: 30%;
+  background-color:rgb(218, 240, 151);
+  font-size: 16px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
 }
 .pagination{
   display: flex;

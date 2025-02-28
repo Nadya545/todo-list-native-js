@@ -1,18 +1,18 @@
 export const buttonSettings = {
   edit: {
-    text: "Редактировать",
+    text: "Edit",
     className: "correct",
     size: "medium",
-    color: "primary",
+    color: "edit",
   },
   complete: {
-    text: "Завершить дело",
+    text: "Complete",
     className: "complete",
     size: "medium",
     color: "correct",
   },
   delete: {
-    text: "Корзиночка",
+    text: "Delete",
     className: "button deleted-button",
     size: "medium",
     color: "delete",
