@@ -18,7 +18,7 @@ export const buttonSettings = {
     color: "delete",
   },
   clear: {
-    text: "Очистить",
+    text: "Clear",
     className: "clear",
     size: "medium",
     color: "clear",

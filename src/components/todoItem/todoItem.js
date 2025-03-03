@@ -1,6 +1,6 @@
 import { createDiv } from "../../ui/div.js";
 import { applyCompletedStyles, formTextLine } from "./todoUtils.js";
-import { removeTodo, updateTodo } from "../../store/todos.js";
+import { removeTodo, updateTodo, getTodos } from "../../store/todos.js";
 import { createModal } from "../modal/modal.js";
 import { createButton } from "../../ui/button.js";
 import { buttonSettings } from "./const.js";
@@ -23,6 +23,7 @@ export function createTodoElement(todo) {
   const miniContainer = createDiv("", "mini_container");
   const buttonContainer = createDiv("", "cont_for_btn");
   const textDiv = createDiv(formTextLine(todo), "line");
+  const textDivLine = createDiv("", "line_2");
   // создаём кнопку с настройками (их выносим в отдельную переменную, чтобы было удобнее)
   // также пробрасываем функцию, которая применится к созданной кнопке (чтобы не писать тыщу раз addEventListener)
   const buttonEdit = createButton({
@@ -41,6 +42,7 @@ export function createTodoElement(todo) {
   applyCompletedStyles(todo.completed, miniContainer);
 
   miniContainer.appendChild(textDiv);
+  miniContainer.appendChild(textDivLine);
   buttonContainer.append(buttonEdit, buttonComplete, deleteButton);
   container.append(miniContainer, buttonContainer);
 

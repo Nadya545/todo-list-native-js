@@ -21,6 +21,8 @@ import {
   setOnChangeCallback,
   findAndGetElements,
   resetFilter,
+  clearTodos,
+  isFiltered,
 } from "./store/todos.js";
 import { createButton } from "./ui/button.js";
 import { buttonSettings } from "./components/todoItem/const.js";
@@ -35,9 +37,12 @@ async function handleTodoData(page = 1) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const { data: todos, totalCount } = await fetchTodos(page, 20);
     console.log("Fetched Todos:", todos);
-    console.log("Total Todos Count:", totalCount);
-
-    renderAllTodos(todos, Math.ceil(totalCount / 20));
+    console.log("Total Todos Length:", todos.length);
+    console.log("Total Count from Server:", totalCount);
+    clearTodos();
+    todos.forEach(addTodo);
+    const totalPages = Math.ceil(totalCount / 20);
+    renderAllTodos(getTodos(), totalPages);
   } catch (err) {
     console.log(err, "Произошла ошибка");
   } finally {
@@ -51,12 +56,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   await handleTodoData(1);
 });
 
-function renderAllTodos(todos, totalPages) {
+export function renderAllTodos(todos, totalPages) {
+  console.log("Rendering todos:", todos); // Отладка
   clearElement(spanDiv);
   const fragment = document.createDocumentFragment();
   todos.forEach((todo) => {
     fragment.appendChild(createTodoElement(todo));
   });
+
   const pagination = createPagination(totalPages, handleTodoData);
   fragment.appendChild(pagination);
   spanDiv.appendChild(fragment);
