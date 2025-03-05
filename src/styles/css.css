@@ -63,18 +63,22 @@ width: 80%;
   
 }
 .close {
-  color: #aaa;
+  color: #595656;
   align-self: flex-end;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 22px !important;
   cursor: pointer;
-  width: 20px;
+  margin-bottom: 10px;
+  padding: 1px !important;
   
 }
 .save-button{
 width: 100px;
 margin-top: 10px;
 align-self: flex-end;
+background-color:rgb(105, 187, 102) ;
+  color: rgb(61, 52, 7);
+  border-color:rgb(52, 46, 6) ;
+  border-radius: 10%;
 }
 .loader {
   border: 8px solid rgba(255, 255, 255, 0.3);
@@ -92,7 +96,7 @@ align-self: flex-end;
 .content {
   background: linear-gradient(to right, rgb(234, 247, 150),rgb(105, 187, 102));
   max-width: 100%;
-  height: auto;
+  min-height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -148,9 +152,10 @@ button[data-color="clear"] {
 }
 
 input[data-color="input_modal"] {
-  background-color: rgb(143, 49, 96);
+  background-color: aliceblue;
   font-size: 14px;
-  color: black;
+  color: rgb(37, 36, 36);
+  border: 1 px;
 }
 .container_todo {
   display: flex;

@@ -33,6 +33,7 @@ export function clearTodos() {
 
 export function addTodo(todo) {
   todoArray.unshift(todo);
+
   if (isFiltered) {
     if (todo.title.includes(currentSearchValue)) {
       filteredTodoArray.unshift(todo);
