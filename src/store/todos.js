@@ -31,19 +31,17 @@ export function clearTodos() {
   }
 }
 
+function renderTodos(todos) {
+  const totalPages = Math.ceil(todos.length / 20);
+  renderAllTodos(todos, totalPages);
+}
+
 export function addTodo(todo) {
   todoArray.unshift(todo);
-
-  if (isFiltered) {
-    if (todo.title.includes(currentSearchValue)) {
-      filteredTodoArray.unshift(todo);
-    }
-    const totalPages = Math.ceil(filteredTodoArray.length / 20);
-    renderAllTodos(filteredTodoArray, totalPages);
-  } else {
-    const totalPages = Math.ceil(todoArray.length / 20);
-    renderAllTodos(todoArray, totalPages);
+  if (isFiltered && todo.title.includes(currentSearchValue)) {
+    filteredTodoArray.unshift(todo);
   }
+  renderTodos(getTodos());
 }
 
 export function removeTodo(id) {
@@ -51,23 +49,19 @@ export function removeTodo(id) {
   if (isFiltered) {
     filteredTodoArray = filteredTodoArray.filter((todo) => todo.id !== id);
   }
-  const todos = getTodos();
-  const totalPages = Math.ceil(todos.length / 20);
-  renderAllTodos(todos, totalPages);
+  renderTodos(getTodos());
 }
 
 export function updateTodo(id, newTitle) {
   const todo = todoArray.find((todo) => todo.id === id);
   if (todo) {
-    todo.title = newTitle; // Update thegetTodos()
+    todo.title = newTitle;
     if (isFiltered) {
       filteredTodoArray = todoArray.filter((todo) =>
         todo.title.includes(currentSearchValue)
       );
     }
-    const todos = getTodos();
-    const totalPages = Math.ceil(todos.length / 20);
-    renderAllTodos(todos, totalPages);
+    renderTodos(getTodos());
   }
 }
 

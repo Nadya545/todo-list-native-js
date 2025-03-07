@@ -30,6 +30,10 @@ import { buttonSettings } from "./components/todoItem/const.js";
 setOnChangeCallback((updateTodo) => {
   renderAllTodos(updateTodo);
 });
+/*setOnChangeCallback((todos, totalPages) => {
+  renderAllTodos(todos);
+  createPagination(totalPages);
+});*/
 
 async function handleTodoData(page = 1) {
   const load = createLoader();
@@ -42,7 +46,7 @@ async function handleTodoData(page = 1) {
     clearTodos();
     todos.forEach(addTodo);
     const totalPages = Math.ceil(totalCount / 20);
-    renderAllTodos(getTodos(), totalPages);
+    renderAllTodos(todos, totalPages);
   } catch (err) {
     console.log(err, "Произошла ошибка");
   } finally {
@@ -53,7 +57,7 @@ handleTodoData();
 
 document.addEventListener("DOMContentLoaded", async () => {
   const totalPages = 10;
-  await handleTodoData(1);
+  await handleTodoData(1, totalPages);
 });
 
 export function renderAllTodos(todos, totalPages) {
